@@ -2,3 +2,4 @@ xkcd.*
 cache/
 comics/
 debug/
+*.png
