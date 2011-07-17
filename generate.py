@@ -40,11 +40,11 @@ def generate_page(index):
 		fontSize = floor(sizeLen/maxLength)
 		while len(text)-pos>maxLength:
 			loc = pos+maxLength
-			while len(text)>pos+loc and text[pos+loc]!=" ":
+			while loc>pos and len(text)>loc and text[loc]!=" ":
 				loc -=1
-			tags.append(text[pos:loc+1].strip())
+			tags.append(text[pos:loc].strip())
 			pos = loc +1
-			while text[pos] == " ":
+			while pos < len(text) and text[pos] == " ":
 				pos +=1
 		tags.append(text[pos:])
 
