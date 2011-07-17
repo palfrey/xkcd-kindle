@@ -85,11 +85,16 @@ def generate_page(index):
 				xmlns:xlink="http://www.w3.org/1999/xlink"
 				width="600" height="800">"""
 	if rotate:
-		print >>svg,"""<image width="800" height="520" xlink:href="%s" transform="rotate(90 300 300)" />
+		height = y-70
+		if height > 800:
+			height = 800
+		width = height/ratio
+		x = (800-height)/2
+		print >>svg,"""<image x="%d" y="70" height="%d" width="%d" xlink:href="%s" transform="rotate(90 300 300)" />
 			<text text-anchor="middle" x="600" y="460" transform="rotate(90 600 400)" font-size="60">%d: %s</text>
-			%s"""%(os.path.basename(img),index, data["title"], "\n".join(tags))
+			%s"""%(x, width, height, os.path.basename(img),index, data["title"], "\n".join(tags))
 	else:
-		height = y-60
+		height = y-70
 		width = ratio*height
 		x = (600 - width)/2
 			
