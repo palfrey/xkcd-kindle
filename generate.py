@@ -72,12 +72,13 @@ def generate_page(index):
             @page {padding: 0pt; margin:0pt}
             body { text-align: center; font-size: 2em; }
         </style>
+		<title>%d: %s</title>
     </head>
     <body>
 		<img src="%d.svg" width="600" height="800" />
 	</body>
 	</html>
-	"""%index
+	"""%(index, data["title"], index)
 	html.close()
 
 	svg = open(os.path.join(outFolder, "%d.svg"%index), "wb")
