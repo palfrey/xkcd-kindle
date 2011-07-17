@@ -63,7 +63,7 @@ def generate_page(index):
 		y = 790
 	for i in range(len(tags)-1,-1,-1):
 		tags[i] = tags[i].replace("y-marker", str(y))
-		y-=40
+		y-= fontSize + 4
 
 	html = open(out, "wb")
 	print >> html, """<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
