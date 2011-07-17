@@ -74,7 +74,7 @@ def generate_page(index):
         </style>
     </head>
     <body>
-		<img src="%d.svg" />
+		<img src="%d.svg" width="600" height="800" />
 	</body>
 	</html>
 	"""%index
