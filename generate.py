@@ -57,23 +57,28 @@ def generate_page(index):
         </style>
     </head>
     <body>
-	   <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-				xmlns:xlink="http://www.w3.org/1999/xlink"
-				width="600" height="800">
-	"""
+		<img src="%d.svg" />
+	</body>
+	</html>
+	"""%index
+	html.close()
 
+	svg = open(os.path.join(outFolder, "%d.svg"%index), "wb")
+	print >> svg, """<svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+				xmlns:xlink="http://www.w3.org/1999/xlink"
+				width="600" height="800">"""
 	if rotate:
-		print >>html,"""<image width="800" height="520" xlink:href="%s" transform="rotate(90 300 300)" />
+		print >>svg,"""<image width="800" height="520" xlink:href="%s" transform="rotate(90 300 300)" />
 			<text text-anchor="middle" x="600" y="460" transform="rotate(90 600 400)" font-size="60">%d: %s</text>
 			%s"""%(os.path.basename(img),index, data["title"], "\n".join(tags))
 	else:
 			
-		print >>html, """<image x="60" y="70" width="%d" height="%d" xlink:href="%s" preserveAspectRatio="none"/>
+		print >>svg, """<image x="60" y="70" width="%d" height="%d" xlink:href="%s" preserveAspectRatio="none"/>
 			<text text-anchor="middle" x="310" y="50" font-size="50">%d: %s</text>
 			%s"""%(ratio*(y-60), y-60, os.path.basename(img),index, data["title"], "\n".join(tags))
 
-	print >> html, "</svg></body></html>"
-	html.close()
+	print >> svg, "</svg>"
+	svg.close()
 
 toc = open(os.path.join(outFolder, "toc.html"), "wb")
 
