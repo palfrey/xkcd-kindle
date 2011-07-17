@@ -2,6 +2,7 @@ import json
 import urlgrab
 import os
 from PIL import Image
+from math import floor
 
 cache = urlgrab.Cache()
 
@@ -25,20 +26,34 @@ def generate_page(index):
 	print ratio, rotate
 
 	text = data["alt"]
-	tags = []
 	if rotate:
-		maxLength = 68
-		fmt = """<text text-anchor="middle" x="600" y="y-marker" transform="rotate(90 600 400)" font-size="30">%s</text>"""
+		sizeLen = 52 * 30
+		fmt = """<text text-anchor="middle" x="600" y="y-marker" transform="rotate(90 600 400)" font-size="%d">%s</text>"""
 	else:
-		maxLength = 37
-		fmt = """<text text-anchor="middle" x="310" y="y-marker" font-size="30">%s</text>"""
-	while len(text)>maxLength:
-		loc = maxLength
-		while len(text)>loc and text[loc]!=" ":
-			loc -=1
-		tags.append(fmt%text[:loc])
-		text = text[loc:].strip()
-	tags.append(fmt%text)
+		sizeLen = 36 * 30
+		fmt = """<text text-anchor="middle" x="310" y="y-marker" font-size="%d">%s</text>"""
+
+	maxLength = int(floor(len(text)/3.0))
+	while True:
+		pos = 0
+		tags = []
+		fontSize = floor(sizeLen/maxLength)
+		while len(text)-pos>maxLength:
+			loc = pos+maxLength
+			while len(text)>pos+loc and text[pos+loc]!=" ":
+				loc -=1
+			tags.append(text[pos:loc+1].strip())
+			pos = loc +1
+			while text[pos] == " ":
+				pos +=1
+		tags.append(text[pos:])
+
+		if len(tags)>3:
+			maxLength +=1
+		else:
+			break
+	print "font", fontSize, maxLength,tags
+	tags = [fmt%(fontSize, x) for x in tags]
 
 	if rotate:
 		y = 980
