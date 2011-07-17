@@ -33,7 +33,9 @@ def generate_page(index):
 		sizeLen = 36 * 30
 		fmt = """<text text-anchor="middle" x="310" y="y-marker" font-size="%d">%s</text>"""
 
-	maxLength = int(floor(len(text)/3.0))
+	maxTags = 3
+	
+	maxLength = int(floor(len(text)/(maxTags*1.0)))
 	while True:
 		pos = 0
 		tags = []
@@ -48,7 +50,7 @@ def generate_page(index):
 				pos +=1
 		tags.append(text[pos:])
 
-		if len(tags)>3:
+		if len(tags)>maxTags:
 			maxLength +=1
 		else:
 			break
