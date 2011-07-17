@@ -87,10 +87,13 @@ def generate_page(index):
 			<text text-anchor="middle" x="600" y="460" transform="rotate(90 600 400)" font-size="60">%d: %s</text>
 			%s"""%(os.path.basename(img),index, data["title"], "\n".join(tags))
 	else:
+		height = y-60
+		width = ratio*height
+		x = (600 - width)/2
 			
-		print >>svg, """<image x="60" y="70" width="%d" height="%d" xlink:href="%s" preserveAspectRatio="none"/>
+		print >>svg, """<image x="%d" y="70" width="%d" height="%d" xlink:href="%s" preserveAspectRatio="none"/>
 			<text text-anchor="middle" x="310" y="50" font-size="50">%d: %s</text>
-			%s"""%(ratio*(y-60), y-60, os.path.basename(img),index, data["title"], "\n".join(tags))
+			%s"""%(x, width, height, os.path.basename(img),index, data["title"], "\n".join(tags))
 
 	print >> svg, "</svg>"
 	svg.close()
